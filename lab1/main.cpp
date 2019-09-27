@@ -23,7 +23,7 @@ int main() {
     for (int i=0; i<180; i++) {
         height =  myimg_copy.rows * (1-sin(i*pi/180)) + myimg_copy.rows/8;
         width =  myimg_copy.cols * i /180;
-        RotatedRect rRect = RotatedRect(Point2f(width, height) /* center*/, Size2f(50,100) /*rect size*/, i/1.1 /*angle*/);
+        RotatedRect rRect = RotatedRect(Point2f(width, height) /* center*/, Size2f(50,100) /*rect size*/, i /*angle*/);
         rRect.points(vertices2f);
         for (int i = 0; i < 4; i++) {
             line(myimg_copy, vertices2f[i], vertices2f[(i + 1) % 4], green, 2); //draw rRect
@@ -33,6 +33,9 @@ int main() {
         prev_center = rRect.center;
         line(myimg, prev_center, rRect.center, blue, 2 ); //trajectory
         imshow(window_name, myimg_copy);
+        if (i==90) {
+            imwrite( "Saves/mars_trolley.jpg", myimg_copy );
+        }
         myimg_copy = myimg.clone();
         waitKey(30);
     }
