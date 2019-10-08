@@ -3,7 +3,7 @@ project(lab1)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(lab1 main.cpp)
+add_executable(lab1 main.cpp libs/matrix.cpp libs/approximation.cpp libs/approximation.h libs/rectangle.cpp libs/rectangle.h)
 
 # Where to find CMake modules and OpenCV
 set(OpenCV_DIR D:\\STV\\opencv-master\\build_1)
