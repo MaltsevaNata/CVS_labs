@@ -3,22 +3,26 @@
 //
 
 #include "rectangle.h"
+#define points_num 180
+
 
 vector <vector<double>> find_coord(Mat image, string func) {
     vector<double> x;
-    x.resize(180);//значения координат точек, по которым будет двигаться тележка
+    x.resize(points_num);//значения координат точек, по которым будет двигаться тележка
     vector<double>y;
-    y.resize(180);
-    for (int i = 0; i < 180; i++) {
+    y.resize(points_num);
+    for (int i = 0; i < points_num; i++) {
         if (func == "sin") {
-            y[i] = image.rows * (1 - sin(i * pi / 180)) + image.rows/8;
-            x[i] = image.cols  * i / 180 ;
+            y[i] = image.rows * (1 - sin(i * pi / points_num)) + image.rows/8;
         }
-        if (func == "cos") {
-            y[i] = image.rows * (1 - cos(i * pi / 180)) + image.rows/8;
-            x[i] = image.cols  * i / 180;
+        else if (func == "cos") {
+            y[i] = image.rows * (1 - cos(i * pi / points_num)) + image.rows/8;
         }
-
+        else {
+            cout<<"Unknown function"<<endl;
+            exit(1);
+        }
+        x[i] = image.cols  * i / points_num;
     }
     vector <vector<double>> coordinates;
     coordinates.push_back(x);

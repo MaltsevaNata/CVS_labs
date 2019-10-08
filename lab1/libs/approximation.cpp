@@ -12,7 +12,7 @@ vector <double> approximate(vector<double> rows, vector<double> cols, Mat image,
     for (int segment = 1; segment <= roi_num; segment++) { //разделение изображения на roi_num областей интереса
         vector<double > roi_x;
         vector<double > roi_y;
-        for (index; (rows[index] < roi_width * segment) && (index<180); index++) {
+        for (index; (rows[index] < roi_width * segment) && (index<rows.size()); index++) {
             roi_x.push_back(rows[index]);
             roi_y.push_back(cols[index]);
         }
