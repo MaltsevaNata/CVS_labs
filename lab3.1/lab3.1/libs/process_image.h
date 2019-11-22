@@ -20,3 +20,4 @@ Mat update_image(Mat myimg_hsv);
 Mat find_draw_contours_robots(Mat threshold, Mat myimg_hsv, Scalar contour_colour);
 Mat update_image_robots(Mat myimg_hsv);
 Mat draw_caps(Mat threshold, vector<vector<Point>> contours, Scalar colour);
+Mat draw_lamp(Mat myimg_hsv, Mat threshold);

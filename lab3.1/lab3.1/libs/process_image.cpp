@@ -5,6 +5,7 @@ static Scalar red = Scalar(0, 0, 255);
 vector<vector<Point>> contours;
 Scalar green = Scalar(0, 255, 0);
 Scalar blue = Scalar(255, 0, 0);
+Scalar yellow = Scalar(0, 255, 255);
 double max_content; //наибольшая площади контура
 Point max_center; //центр наибольшего контура
 
@@ -42,14 +43,17 @@ Mat update_image_robots(Mat myimg_hsv) {
 	Mat threshold;
 	Mat green_threshold;
 	Mat blue_threshold;
+	Mat lamp_threshold;
 	//threshold = get_threshold_Bars(myimg_hsv);
-	Scalar lower_red, higher_red, lower_green, higher_green, lower_blue, higher_blue;
+	Scalar lower_red, higher_red, lower_green, higher_green, lower_blue, higher_blue, lower_lamp, higher_lamp;
 	lower_red = Scalar(0, 0, 0);
 	higher_red = Scalar(7, 255, 255);
 	lower_green = Scalar(23,42,128);
 	higher_green = Scalar(84, 255, 255);
 	lower_blue = Scalar(84, 0, 0);
 	higher_blue = Scalar(152, 255, 255);
+	lower_lamp = Scalar(0, 0, 250);
+	higher_lamp = Scalar(179, 14, 255);
 	//threshold = find_draw_contours(threshold, myimg_hsv, blue);
 	inRange(myimg_hsv, lower_red, higher_red, threshold);
 	threshold = find_draw_contours_robots(threshold, myimg_hsv, red);
@@ -59,6 +63,23 @@ Mat update_image_robots(Mat myimg_hsv) {
 	cvtColor(threshold, threshold, COLOR_BGR2HSV);
 	inRange(threshold, lower_blue, higher_blue, blue_threshold);
 	threshold = find_draw_contours_robots(blue_threshold, threshold, blue);
+	cvtColor(threshold, threshold, COLOR_BGR2HSV);
+	inRange(threshold, lower_lamp, higher_lamp, lamp_threshold);
+	threshold = draw_lamp(lamp_threshold, threshold);
+	return threshold;
+}
+
+
+Mat draw_lamp(Mat threshold, Mat myimg_hsv) {
+	findContours(threshold, contours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE); //поиск внешних контуров без аппроксимации
+	cvtColor(myimg_hsv, threshold, COLOR_HSV2BGR);
+	for (int i = 0; i < contours.size(); i++) { //находим центр  масс каждого контура
+		Moments mom = moments(contours[3]);
+		double x = mom.m10 / mom.m00;
+		double y = mom.m01 / mom.m00;
+		Point center = Point(x, y);
+		circle(threshold, center, 20, yellow, -1, 8, 0); // точка центра контура
+	}
 	return threshold;
 }
 
