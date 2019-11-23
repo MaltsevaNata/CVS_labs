@@ -12,5 +12,6 @@ using namespace std;
 string path_allababah = "D:/Study/STV labs/CVS_labs/lab3.1/img_zadan/allababah";
 string path_teplovizor = "D:/Study/STV labs/CVS_labs/lab3.1/img_zadan/teplovizor";
 string path_roboti = "D:/Study/STV labs/CVS_labs/lab3.1/img_zadan/roboti";
+string path_gk = "D:/Study/STV labs/CVS_labs/lab3.1/img_zadan/gk";
 
-String current_path = path_allababah;
+String current_path = path_gk;

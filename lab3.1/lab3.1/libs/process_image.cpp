@@ -35,6 +35,9 @@ Mat process_image_lab3(String imageName, Mat myimg) {
 	return myimg_hsv;
 }
 
+
+
+
 Mat update_image(Mat myimg_hsv) {
 	Mat threshold;
 	threshold = get_threshold_Bars(myimg_hsv);
@@ -74,14 +77,62 @@ Mat update_image_robots(Mat myimg_hsv) {
 	inRange(threshold, lower_blue, higher_blue, blue_threshold);
 	threshold = find_draw_contours_robots(blue_threshold, threshold, blue);
 
-	
-
 	threshold = find_nearest_robots(threshold, red_team);
 	threshold = find_nearest_robots(threshold, green_team);
 	threshold = find_nearest_robots(threshold, blue_team);
 	cvtColor(threshold, threshold, COLOR_HSV2BGR);
 	return threshold;
 }
+
+vector<vector<Point>> find_template(Mat gk_template) {
+	Mat threshold_temp;
+	cvtColor(gk_template, threshold_temp, COLOR_BGR2GRAY);
+	threshold(threshold_temp, threshold_temp, 100, 255, THRESH_BINARY);
+	findContours(threshold_temp, contours, RETR_EXTERNAL, CHAIN_APPROX_NONE);
+	/*cvtColor(threshold_temp, threshold_temp, COLOR_GRAY2BGR);
+	polylines(threshold_temp, contours, true, red, 2, 10); //рисование контуров
+	imshow("temp", threshold_temp);
+	waitKey(0);*/
+	return contours;
+}
+
+
+Mat find_gk(Mat myimg, vector<vector<Point>> temp_contour) {
+	Mat threshold;
+	Scalar lower_gk = Scalar(0, 0, 0);
+	Scalar higher_gk = Scalar(179, 255, 250);
+	/*imshow("all_gk_Name", myimg);
+	waitKey(0);*/
+	cvtColor(myimg, myimg, COLOR_BGR2HSV);
+	inRange(myimg, lower_gk, higher_gk, threshold);
+	threshold = find_choose_contours_gk(threshold, myimg, temp_contour, green);
+	/*imshow("all_gk_Name", threshold);
+	waitKey(0);*/
+	return threshold;
+}
+
+
+
+Mat find_choose_contours_gk(Mat threshold, Mat myimg_hsv, vector<vector<Point>> temp_contour,  Scalar contour_colour) {
+	findContours(threshold, contours, RETR_EXTERNAL, CHAIN_APPROX_NONE); //поиск внешних контуров без аппроксимации
+	cvtColor(myimg_hsv, threshold, COLOR_HSV2BGR);
+	int min_content = 1000;
+	int content;
+	double max_diff = 1;
+	vector<vector<Point>> good_gk;
+	for (int i = 0; i < contours.size(); i++) { //находим центр  масс каждого контура
+		content = contourArea(contours[i], false); //площадь контура
+		double diff = matchShapes(contours[i], temp_contour[0], ShapeMatchModes::CONTOURS_MATCH_I2, 0); //сравниваем с шаблоном
+		if ((content > min_content) && (diff < max_diff)) {
+			good_gk.push_back(contours[i]);
+		}
+	
+	}
+
+	polylines(threshold, good_gk, true, contour_colour, 2, 10); //рисование контуров
+	return threshold;
+}
+
 
 
 
