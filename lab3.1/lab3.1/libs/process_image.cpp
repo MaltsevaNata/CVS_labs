@@ -101,13 +101,9 @@ Mat find_gk(Mat myimg, vector<vector<Point>> temp_contour) {
 	Mat threshold;
 	Scalar lower_gk = Scalar(0, 0, 0);
 	Scalar higher_gk = Scalar(179, 255, 250);
-	/*imshow("all_gk_Name", myimg);
-	waitKey(0);*/
 	cvtColor(myimg, myimg, COLOR_BGR2HSV);
 	inRange(myimg, lower_gk, higher_gk, threshold);
 	threshold = find_choose_contours_gk(threshold, myimg, temp_contour, green);
-	/*imshow("all_gk_Name", threshold);
-	waitKey(0);*/
 	return threshold;
 }
 
@@ -128,7 +124,6 @@ Mat find_choose_contours_gk(Mat threshold, Mat myimg_hsv, vector<vector<Point>> 
 		}
 	
 	}
-
 	polylines(threshold, good_gk, true, contour_colour, 2, 10); //рисование контуров
 	return threshold;
 }

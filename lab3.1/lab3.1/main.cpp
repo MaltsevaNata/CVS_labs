@@ -30,8 +30,6 @@ int main()
 		namedWindow(all_gk_Name, WINDOW_AUTOSIZE);
 		imshow(all_gk_Name, processed);
 		waitKey(0);
-		//new_img_num = check_pressed_but(img_num);
-	//}
 	}
 	else {
 		while ((img_num < images.size()) && (img_num >= 0)) {
@@ -54,7 +52,6 @@ int main()
 					processed = update_image(tempProcessed);
 					namedWindow(imageName, WINDOW_AUTOSIZE);
 					imshow(imageName, processed);
-					//imshow(imageName, myimg);
 					new_img_num = check_pressed_but(img_num);
 				}
 			}
