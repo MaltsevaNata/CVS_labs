@@ -3,6 +3,7 @@
 #include <opencv2/highgui.hpp>
 #include "opencv2/opencv.hpp"
 #include "opencv2/core.hpp"
+#include <math.h>
 #include <opencv2/core/types.hpp>
 #include "windows.h"
 #include "opencv2/imgproc/imgproc.hpp"
@@ -21,3 +22,4 @@ Mat find_draw_contours_robots(Mat threshold, Mat myimg_hsv, Scalar contour_colou
 Mat update_image_robots(Mat myimg_hsv);
 Mat draw_caps(Mat threshold, vector<vector<Point>> contours, Scalar colour);
 Mat draw_lamp(Mat myimg_hsv, Mat threshold);
+Mat find_nearest_robots(Mat threshould, vector<Point> team);

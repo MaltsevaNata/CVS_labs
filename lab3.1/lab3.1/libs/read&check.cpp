@@ -15,12 +15,12 @@ Mat read_img(String imageName) {
 
 int check_pressed_but(int img_num) {
 	int button = waitKey(33);
-	//std::cout << button << std::endl;
-	if (button == 100) { //D - следующее изображение
+	std::cout << button << std::endl;
+	if ((button == 100) || (button == 226)) { //D - следующее изображение
 		img_num++;
 		destroyAllWindows();
 	}
-	else if (button == 97) { //A - предыдущее изображение
+	else if ((button == 97) || (button == 244)) { //A - предыдущее изображение
 		img_num--;
 		destroyAllWindows();
 	}

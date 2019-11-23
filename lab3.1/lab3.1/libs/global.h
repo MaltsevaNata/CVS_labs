@@ -13,4 +13,4 @@ string path_allababah = "D:/Study/STV labs/CVS_labs/lab3.1/img_zadan/allababah";
 string path_teplovizor = "D:/Study/STV labs/CVS_labs/lab3.1/img_zadan/teplovizor";
 string path_roboti = "D:/Study/STV labs/CVS_labs/lab3.1/img_zadan/roboti";
 
-String current_path = path_roboti;
+String current_path = path_allababah;

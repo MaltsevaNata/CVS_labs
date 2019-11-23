@@ -24,11 +24,11 @@ int main()
 		Mat myimg = read_img(imageName);
 		namedWindow(imageName, WINDOW_AUTOSIZE);
 		if (current_path == path_roboti) {
-			Mat tempProcessed = process_image_lab3(imageName, myimg);
+			Mat tempProcessed = process_image_lab3(imageName, myimg); //â HSV
 			while (img_num == new_img_num) {
 				processed = update_image_robots(tempProcessed);
-				namedWindow("Result", WINDOW_AUTOSIZE);
-				imshow("Result", processed);
+				namedWindow(imageName, WINDOW_AUTOSIZE);
+				imshow(imageName, processed);
 				new_img_num = check_pressed_but(img_num);
 			}
 		}
@@ -36,8 +36,8 @@ int main()
 			Mat tempProcessed = process_image_lab12(imageName, myimg);
 			while (img_num == new_img_num) {
 				processed = update_image(tempProcessed);
-				namedWindow("Result", WINDOW_AUTOSIZE);
-				imshow("Result", processed);
+				namedWindow(imageName, WINDOW_AUTOSIZE);
+				imshow(imageName, processed);
 				//imshow(imageName, myimg);
 				new_img_num = check_pressed_but(img_num);
 			}
