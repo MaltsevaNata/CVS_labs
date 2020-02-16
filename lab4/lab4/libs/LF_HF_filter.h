@@ -4,4 +4,4 @@
 
 
 
-void LF_filter(Mat image);
+void LF_HF_filter(Mat image);
