@@ -6,7 +6,6 @@
 void convolution(Mat image, int filter) {
 	string filterName;
 	Mat filt(3, 3, CV_32F);
-
 	switch (filter)
 	{
 	case SOBEL_HOR: {
@@ -23,7 +22,6 @@ void convolution(Mat image, int filter) {
 	}
 	case BOXFILTER: {
 		filterName = "Box filter";
-	
 		float filterData[3][3] = { { 1.0 / 9.0, 1.0 / 9.0, 1.0 / 9.0 },{ 1.0 / 9.0, 1.0 / 9.0, 1.0 / 9.0 },{ 1.0 / 9.0, 1.0 / 9.0, 1.0 / 9.0 } };
 		std::memcpy(filt.data, filterData, 3 * 3 * sizeof(float));
 		break;
@@ -70,5 +68,5 @@ void convolution(Mat image, int filter) {
 	dft(modif_img, image, DFT_INVERSE | DFT_REAL_OUTPUT);
 	image = image(oi);
 	normalize(image, image, 0, 1, NORM_MINMAX);
-	ShowManyImages(filterName, image, beaut_img, beaut_filt, roi);
+	ShowManyImages(filterName, image, beaut_img, beaut_filt, roi, true);
 }
